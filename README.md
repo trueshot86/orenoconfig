@@ -1,0 +1,2 @@
+# orenoconfig
+nixos , hyprland
