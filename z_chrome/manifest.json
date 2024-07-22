@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail Shortcut",
+  "version": "1.0",
+  "description": "Open Gmail and Calender and Youtube ",
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "open-gmail": {
+      "suggested_key": {
+        "default": "Alt+Shift+2"
+      },
+      "description": "Open Gmail or switch to the Gmail tab"
+    },
+    "open-calender": {
+      "suggested_key": {
+        "default": "Alt+Shift+3"
+      },
+      "description": "Open Calender or switch to the Calender tab"
+    },
+    "open-youtube": {
+      "suggested_key": {
+        "default": "Alt+Shift+4"
+      },
+      "description": "Open Youtbe or switch to the Youtube tab"
+    }
+  }
+}
+
