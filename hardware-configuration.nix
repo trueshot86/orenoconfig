@@ -12,6 +12,9 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=n
+  '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/da0768db-5aa1-4b7c-8ef7-14662dd2e590";
@@ -36,6 +39,18 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # 2024 07 10 add
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
+
 }
