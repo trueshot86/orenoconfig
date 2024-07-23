@@ -14,6 +14,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  networking.firewall.allowedUDPPorts = [ 1194 ];  
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -47,15 +49,16 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+#  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
 #  services.xserver.displayManager.sddm.wayland.enable = true;
 
 #  services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.variant = "";
+    xkb.layout= "us";
   };
 
   # Enable CUPS to print documents.
@@ -96,6 +99,7 @@
   programs.firefox.enable = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
+  
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -105,7 +109,7 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    cowsay
+#    cowsay
     bluez
     bluez-tools
     blueman
@@ -209,6 +213,7 @@
       };
     };
   };
+
 
 
 }
