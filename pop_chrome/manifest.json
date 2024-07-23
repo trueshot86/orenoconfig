@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Mover",
+  "version": "1.0",
+  "description": "Move current tab to another Chrome window with Ctrl+Q",
+  "permissions": [
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "move-tab": {
+      "suggested_key": {
+        "default": "Ctrl+Q"
+      },
+      "description": "Move current tab to another window"
+    }
+  }
+}
