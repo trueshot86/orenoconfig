@@ -9,13 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-  # 仮想マシン
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  # Polkit の設定
-  security.polkit.enable = true;
-  # D-Bus の設定
-  services.dbus.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -116,8 +109,8 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    cowsay
-    polkit_gnome
+  #  cowsay
+  #  polkit_gnome
     bluez
     bluez-tools
     blueman
