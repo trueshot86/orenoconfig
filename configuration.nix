@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  # 仮想化のサポートを有効にする
+  virtualisation.libvirtd.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -50,8 +53,27 @@
 
   # Enable the KDE Plasma Desktop Environment.
 #  services.xserver.displayManager.sddm.enable = true;
-  services.displayManager.sddm.enable = true;
-#  services.xserver.displayManager.sddm.wayland.enable = true;
+#  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
+#    theme = "where-is-my-sddm-theme";
+#    settings = {
+#      Theme = {
+#        ThemeDir = "/etc/sddm/themes";
+#        FacesDir = "/etc/sddm/faces";
+#        Face = "/etc/sddm/faces/.face.icon";
+#        Theme = "/etc/sddm/themes/background.jpg"; 
+#        Background = "/etc/sddm/themes/background.jpg"; 
+#      };
+#    };
+  };
+  # SDDMの設定ファイルをオーバーライド
+  # 以前の environment.etc."sddm.conf" の設定は削除し、代わりに以下を使用
+  environment.etc."sddm/faces/.face.icon".source = /etc/pic/.face.icon;
+  # 背景画像をシステムにコピー
+  environment.etc."sddm/themes/background.jpg".source = /etc/pic/background.jpg;
 
 #  services.xserver.desktopManager.plasma5.enable = true;
 
@@ -83,12 +105,11 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.yuris = {
     isNormalUser = true;
     description = "yuris";
-    extraGroups = [ "networkmanager" "wheel" "livbirtd"];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd"];
     packages = with pkgs; [
       kate
     #  thunderbird
@@ -108,9 +129,15 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  #  cowsay
-  #  polkit_gnome
+    libsForQt5.qt5.qtquickcontrols2
+    libsForQt5.qt5.qtgraphicaleffects
+    feh
+    where-is-my-sddm-theme
+    virt-manager
+    qemu
+    libvirt
+    spice-vdagent
+    wget
     bluez
     bluez-tools
     blueman
@@ -140,7 +167,11 @@
     slurp
     grimblast
     dunst
+    feh
   ];
+
+  # 必要なサービスを有効にする
+  services.spice-vdagentd.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -215,6 +246,8 @@
     };
   };
 
+  
+ 
 
 
 }
