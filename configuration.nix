@@ -129,10 +129,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    jq
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects
     feh
-    where-is-my-sddm-theme
     virt-manager
     qemu
     libvirt
@@ -168,10 +168,14 @@
     grimblast
     dunst
     feh
+    swaylock
+    obsidian
+    upower
   ];
 
   # 必要なサービスを有効にする
   services.spice-vdagentd.enable = true;
+  services.upower.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];

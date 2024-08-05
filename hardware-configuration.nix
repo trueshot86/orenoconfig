@@ -41,10 +41,11 @@
   # 2024 07 10 add
   hardware.bluetooth = {
     enable = true;
+    package = pkgs.bluez;
     powerOnBoot = true;
     settings = {
       General = {
-        Enable = "Source,Sink,Media,Socket";
+#        Enable = "Source,Sink,Media,Socket";
         Experimental = true;
       };
       Policy = {
